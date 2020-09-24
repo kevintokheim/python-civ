@@ -1,5 +1,5 @@
 import pygame
-from civ import pressed_keys
+from pygame.locals import *
 
 
 class Unit(pygame.sprite.Sprite):
@@ -29,10 +29,20 @@ class Unit(pygame.sprite.Sprite):
         print(self.city_id)
         return self.city_id
 
-    
+    def update(self):
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[K_UP]:
+            self.rect.move_ip(0, -5)
+        if pressed_keys[K_DOWN]:
+            self.rect.move_ip(0, 5)
+        if pressed_keys[K_LEFT]:
+            self.rect.move_ip(-5, 0)
+        if pressed_keys[K_RIGHT]:
+            self.rect.move_ip(5, 0)
+
 class CombatUnit(Unit):
-    def __init__(self, hp, unit_type, city_id, ap):
-        super().__init__(hp, unit_type, city_id)
+    def __init__(self, hp, cmbt_unit_type, city_id, ap):
+        super().__init__(hp, cmbt_unit_type, city_id)
         self.ap = ap
 
     def get_ap(self):
@@ -71,8 +81,7 @@ class City:
     
 
 # u = Unit("10", "Warrior", "Athens")
-warrior = CombatUnit(10, "Warrior", "Sparta", 5)
-barbarian = CombatUnit(8, "Warrior", "Barbarian", 4)
-warrior.attack(barbarian)
-print(f"Barbarian health after attack: {barbarian.hp}")
+# barbarian = CombatUnit(8, "Warrior", "Barbarian", 4)
+# warrior.attack(barbarian)
+# print(f"Barbarian health after attack: {barbarian.hp}")
 

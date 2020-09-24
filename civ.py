@@ -8,14 +8,21 @@ import math
 
 # c = CombatUnit("10", "Warrior", "Sparta", "5")
 
+warrior = CombatUnit(10, "Warrior", "Sparta", 5)
+
 GAME_OVER = False
 #GAME LOOP
 while not GAME_OVER:
     for event in pygame.event.get():
-        if event.type == QUIT:
+        if event.type == KEYDOWN:
+            if event.type == K_ESCAPE:
+                GAME_OVER = True
+        elif event.type == QUIT:
+            GAME_OVER = True
             pygame.quit()
             sys.exit()
-    pressed_keys = pygame.key.get_pressed()
+            
+    warrior.update()
 
     """
     RENDERING GRID, SPRITES, AND VIEWS
@@ -31,3 +38,5 @@ while not GAME_OVER:
 
     DISPLAYSURFACE.blit(warrior.surf, warrior.rect)
     pygame.display.update()
+    
+warrior.attack(barbarian)
