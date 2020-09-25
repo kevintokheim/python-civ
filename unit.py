@@ -1,15 +1,15 @@
 import pygame
 from pygame.locals import *
-
+from constants import *
 
 class Unit(pygame.sprite.Sprite):
     def __init__(self, hp, unit_type, city_id):
         super(Unit, self).__init__()
         self.surf = pygame.Surface((75, 25))
-        self.surf.fill((255, 255, 255))
-        self.rect = self.surf.get_rect()
+        self.rect = self.surf.get_rect(topleft=(100, 300))
         # mp, active, current_action, turn_over, location,
         self.hp = hp
+        # self.sprite
         self.unit_type = unit_type
         # self.mp = mp
         # self.active = active
@@ -29,6 +29,7 @@ class Unit(pygame.sprite.Sprite):
         print(self.city_id)
         return self.city_id
 
+    #movement update function
     def update(self):
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[K_UP]:
@@ -40,10 +41,21 @@ class Unit(pygame.sprite.Sprite):
         if pressed_keys[K_RIGHT]:
             self.rect.move_ip(5, 0)
 
+        #keep the player on the screen
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > (MAPWIDTH * TILESIZE):
+            self.rect.right = (MAPWIDTH * TILESIZE)
+        if self.rect.top <= 0:
+            self.rect.top = 0
+        if self.rect.bottom >= (MAPHEIGHT * TILESIZE):
+            self.rect.bottom = (MAPHEIGHT * TILESIZE)
+
 class CombatUnit(Unit):
-    def __init__(self, hp, cmbt_unit_type, city_id, ap):
+    def __init__(self, hp, cmbt_unit_type, city_id, ap, color):
         super().__init__(hp, cmbt_unit_type, city_id)
         self.ap = ap
+        self.surf.fill(color)
 
     def get_ap(self):
         print(self.ap)
@@ -52,7 +64,6 @@ class CombatUnit(Unit):
     def attack(self, target):
         target.hp -= self.ap
         print(target.hp)
-        print(self.ap)
         print("Hello?")
         return target.hp
 

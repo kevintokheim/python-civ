@@ -1,5 +1,6 @@
 import pygame
 import random
+from constants import *
 
 # TILES
 DIRT = 0
@@ -54,18 +55,18 @@ GRID = [
         WATER, WATER, WATER, WATER, WATER, WATER, WATER, WATER, GRASS]
 ]
 
-# GAME DIMENSIONS, CONFIG
-TILESIZE = 50
-MAPWIDTH = 20
-MAPHEIGHT = 10
+# # GAME DIMENSIONS, CONFIG
+# TILESIZE = 50
+# MAPWIDTH = 20
+# MAPHEIGHT = 10
 
-pygame.init()
-pygame.display.set_caption('CITY STATE')
-DISPLAYSURFACE = pygame.display.set_mode((MAPWIDTH*TILESIZE, MAPHEIGHT*TILESIZE))
+# pygame.init()
+# pygame.display.set_caption('CITY STATE')
+# DISPLAYSURFACE = pygame.display.set_mode((MAPWIDTH*TILESIZE, MAPHEIGHT*TILESIZE))
 
-# COLORS
-WHITE = (200, 200, 200)
-BLACK = (0, 0, 0)
-BLUE = (30, 144, 255)
-GREEN = (60, 179, 113)
-RED = (178, 0, 0)
+# # COLORS
+# WHITE = (200, 200, 200)
+# BLACK = (0, 0, 0)
+# BLUE = (30, 144, 255)
+# GREEN = (60, 179, 113)
+# RED = (178, 0, 0)

@@ -2,3 +2,6 @@ env/
 .vscode/
 __pycache__/
 rpg.py
+tempCodeRunnerFile.py
+.DS_Store
+*/.DS_Store
