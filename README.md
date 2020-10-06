@@ -1,0 +1,1 @@
+Over the summer, I became obsessed with two things: Python, and the computer game Civilization 5. So, naturally, I thought it would be a cool project to reverse-engineer Civ 5 using Python. This is my very small and so far very minimal project. 

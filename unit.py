@@ -1,22 +1,21 @@
 import pygame
 from pygame.locals import *
+from pygame.math import Vector2
 from constants import *
+from queue import PriorityQueue
+import math
 
 class Unit(pygame.sprite.Sprite):
-    def __init__(self, hp, unit_type, city_id):
+    def __init__(self, hp, unit_type, city_id, pos):
         super(Unit, self).__init__()
         self.surf = pygame.Surface((75, 25))
         self.rect = self.surf.get_rect(topleft=(100, 300))
-        # mp, active, current_action, turn_over, location,
         self.hp = hp
-        # self.sprite
         self.unit_type = unit_type
-        # self.mp = mp
-        # self.active = active
-        # self.current_action = current_action
-        # self.turn_over = turn_over
-        # self.location = location
+        self.color = WHITE
         self.city_id = city_id
+        self.pos = pygame.Vector2(0, 0)
+        self.set_target((0, 0))
 
     def get_hp(self):
         return self.hp
@@ -26,20 +25,24 @@ class Unit(pygame.sprite.Sprite):
         return self.hp
 
     def get_city(self):
-        print(self.city_id)
         return self.city_id
 
+    #set target for mouse click
+    def set_target(self, pos):
+        self.target = pygame.Vector2(pos)
+    
     #movement update function
+    #moves character to a target position. 
+    #I plan on updating this with an A* pathfinding algorithm for NPCs
     def update(self):
-        pressed_keys = pygame.key.get_pressed()
-        if pressed_keys[K_UP]:
-            self.rect.move_ip(0, -5)
-        if pressed_keys[K_DOWN]:
-            self.rect.move_ip(0, 5)
-        if pressed_keys[K_LEFT]:
-            self.rect.move_ip(-5, 0)
-        if pressed_keys[K_RIGHT]:
-            self.rect.move_ip(5, 0)
+        move = self.target - self.pos
+        move_length = move.length()
+
+        if move_length != 0:
+            move.normalize_ip()
+            self.pos += move
+
+        self.rect.topleft = list(int(v) for v in self.pos)
 
         #keep the player on the screen
         if self.rect.left < 0:
@@ -52,44 +55,17 @@ class Unit(pygame.sprite.Sprite):
             self.rect.bottom = (MAPHEIGHT * TILESIZE)
 
 class CombatUnit(Unit):
-    def __init__(self, hp, cmbt_unit_type, city_id, ap, color):
-        super().__init__(hp, cmbt_unit_type, city_id)
+    def __init__(self, hp, cmbt_unit_type, city_id, ap, color, pos):
+        super().__init__(hp, cmbt_unit_type, city_id, pos)
         self.ap = ap
         self.surf.fill(color)
 
     def get_ap(self):
-        print(self.ap)
         return self.ap
 
     def attack(self, target):
         target.hp -= self.ap
-        print(target.hp)
-        print("Hello?")
         return target.hp
-
-class City:
-    def __init__(self, name, population, id):
-        self.name = name
-        self.population = population
-        self.id = id
-    
-    def get_name(self):
-        print(self.name)
-        return self.name
-
-    def get_population(self):
-        print(self.population)
-        return self.population
-    
-    def add_to_population(self):
-        self.population += 1
-        print(self.population)
-        return self.population
-
-    def get_id(self):
-        print(self.id)
-        return self.id
-    
 
 # u = Unit("10", "Warrior", "Athens")
 # barbarian = CombatUnit(8, "Warrior", "Barbarian", 4)

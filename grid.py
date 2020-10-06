@@ -1,6 +1,7 @@
 import pygame
 import random
 from constants import *
+#https://github.com/jg-fisher/zeldaGame/blob/master/main.py
 
 # TILES
 DIRT = 0
@@ -62,11 +63,6 @@ GRID = [
 
 # pygame.init()
 # pygame.display.set_caption('CITY STATE')
-# DISPLAYSURFACE = pygame.display.set_mode((MAPWIDTH*TILESIZE, MAPHEIGHT*TILESIZE))
+DISPLAYSURFACE = pygame.display.set_mode((MAPWIDTH*TILESIZE, MAPHEIGHT*TILESIZE))
 
-# # COLORS
-# WHITE = (200, 200, 200)
-# BLACK = (0, 0, 0)
-# BLUE = (30, 144, 255)
-# GREEN = (60, 179, 113)
-# RED = (178, 0, 0)
+
